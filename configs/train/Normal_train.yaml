@@ -1,0 +1,44 @@
+model:
+  in_feat: 9
+  hid_feat: 32
+
+dataset:
+  root_dir: 'data/sequences'
+  prefix: cylindrical
+  label_directory: scribbles
+  aug:
+    ['rotate', 'flip', 'scale', 'noise']
+
+val_dataset:
+  root_dir: 'data/sequences'
+  prefix: cylindrical
+  label_directory: labels
+
+train_dataloader:
+  batch_size: 2
+  shuffle: True
+  num_workers: 8
+
+val_dataloader:
+  batch_size: 2
+  shuffle: False
+  num_workers: 8
+
+test_dataloader:
+  batch_size: 1
+  shuffle: False
+  num_workers: 4
+
+trainer:
+  max_epochs: 75
+  gpus: -1
+  check_val_every_n_epoch: 1
+  default_root_dir: 'output'
+  accelerator: 'ddp'
+  sync_batchnorm: True
+  accumulate_grad_batches: 1
+  num_sanity_val_steps: 1
+
+optimizer:
+  lr: 0.001
+
